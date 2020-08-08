@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>MyBlog.DAL</AssemblyName>
+    <RootNamespace>MyBlog.DAL</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyBlog.IDAL\MyBlog.IDAL.csproj" />
+    <ProjectReference Include="..\MyBlog.MODEL\MyBlog.MODEL.csproj" />
+  </ItemGroup>
+
+</Project>
