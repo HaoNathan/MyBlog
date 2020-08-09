@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyBlog.MODEL;
 
@@ -11,7 +12,10 @@ namespace MyBlog.IDAL
 
         Task<int> UpdateAsync(T model);
 
-        IEnumerable<T> QueryAsync();
+        IEnumerable<T> QueryAll(bool isNoTracking);
 
+        Task<T> QueryAsync(Guid id);
+
+        Task<T> QueryAsync(Expression<Func<T,bool>>lambdaFunc);
     }
 }

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MyBlog.IDAL;
 using MyBlog.MODEL;
 
@@ -31,9 +34,22 @@ namespace MyBlog.DAl
              return await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> QueryAsync()
+        public IEnumerable<T> QueryAll(bool isNoTracking)
         {
+            if (isNoTracking)
+                return _context.Set<T>().AsNoTracking();
+
             return _context.Set<T>();
+
+        }
+        public async Task<T> QueryAsync(Guid id)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(m=>m.Id.Equals(id));
+        }
+
+        public async Task<T> QueryAsync(Expression<Func<T, bool>> lambdaFunc)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(lambdaFunc);
         }
     }
 }

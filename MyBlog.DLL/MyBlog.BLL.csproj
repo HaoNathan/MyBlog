@@ -10,7 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyBlog.DAl\MyBlog.DAL.csproj" />
     <ProjectReference Include="..\MyBlog.IBLL\MyBlog.IBLL.csproj" />
+    <ProjectReference Include="..\MyBlog.IDAL\MyBlog.IDAL.csproj" />
     <ProjectReference Include="..\MyBlog.MODEL\MyBlog.MODEL.csproj" />
     <ProjectReference Include="..\MyBlogDTO\MyBlog.DTO.csproj" />
   </ItemGroup>

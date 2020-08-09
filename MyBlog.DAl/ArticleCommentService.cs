@@ -5,9 +5,12 @@ namespace MyBlog.DAl
 {
     public class ArticleCommentService:BaseService<ArticleComment>,IArticleCommentService
     {
+
         public ArticleCommentService(MyBlogContext context) : base(context)
         {
 
         }
+
+
     }
 }

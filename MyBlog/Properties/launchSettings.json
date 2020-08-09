@@ -12,7 +12,7 @@
     "MyBlog": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "/api",
+      "launchUrl": "api",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
