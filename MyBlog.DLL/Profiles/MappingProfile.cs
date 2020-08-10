@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
 using MyBlog.MODEL;

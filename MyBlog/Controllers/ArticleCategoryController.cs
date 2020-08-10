@@ -38,9 +38,9 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ArticleCategoryDto>> GetCategories([FromQuery]bool isRemove,bool isNoTracking)
+        public ActionResult<List<ArticleCategoryDto>> GetCategories([FromQuery]bool isRemove)
         {
-            return Ok(_manager.QueryAll(isRemove,isNoTracking).ToList());
+            return Ok(_manager.QueryAll(isRemove,true).ToList());
         }
 
       

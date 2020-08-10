@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using MyBlog.BLL.Helper;
 using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
+using MyBlog.DTO.ParameterDto;
 
 namespace MyBlog.IBLL
 {
@@ -10,6 +11,9 @@ namespace MyBlog.IBLL
     {
         Task<int> CreateArticle(AddArticleDto model);
 
-        IEnumerable<ArticleDto> QueryArticles(bool isRemove, bool isNoTracking);
+        Task<PageList<ArticleDto>> QueryArticles(ArticleParameter parameter);
+
+        Task<ArticleDto> QueryArticle(Guid id);
+
     }
 }

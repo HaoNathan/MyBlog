@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MyBlog.BLL.Helper;
 using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
+using MyBlog.DTO.ParameterDto;
 using MyBlog.IBLL;
 using MyBlog.IDAL;
 using MyBlog.MODEL;
@@ -29,21 +31,38 @@ namespace MyBlog.BLL
             return await _articleService.AddAsync(article);
         }
 
-        public IEnumerable<ArticleDto> QueryArticles(bool isRemove, bool isNoTracking)
+        public async Task<PageList<ArticleDto>> QueryArticles(ArticleParameter parameter)
         {
-            List<Articles> list;
+            var data = _articleService.QueryAll(true) as IQueryable<Articles>;
 
-            if (isRemove)
+            if (data==null)
+                return null;
+
+            if (!string.IsNullOrWhiteSpace(parameter.Id.ToString()))
             {
-                list = _articleService.QueryAll(isNoTracking).ToList();
-                return _mapper.Map<List<ArticleDto>>(list);
+                data = data .Where(m => m.Id.Equals(parameter.Id));
             }
 
+            if (!parameter.IsRemove)
+            {
+                data = data.Where(m=>!m.IsRemove);
+            }
 
-            list = _articleService.QueryAll(isNoTracking).Where(m => !m.IsRemove).ToList();
+            if (string.IsNullOrWhiteSpace(parameter.Search))
+            {
+                data = data.Where(m => m.Title.Contains(parameter.Search));
+            }
 
-            return _mapper.Map<List<ArticleDto>>(list);
+            var articles = _mapper.Map<IQueryable<ArticleDto>>(data);
 
+            return await PageList<ArticleDto>.Create(articles, parameter.PageNum, parameter.PageSize);
+        }
+
+        public async Task<ArticleDto> QueryArticle(Guid id)
+        {
+            var article = await _articleService.QueryAsync(id);
+
+            return _mapper.Map<ArticleDto>(article);
         }
     }
 }
