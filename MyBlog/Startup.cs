@@ -1,11 +1,13 @@
 using System.Reflection;
 using Autofac;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyBlog.BLL.Profiles;
 using MyBlog.MODEL;
 
 namespace MyBlog
@@ -26,6 +28,9 @@ namespace MyBlog
             services.AddDbContext<MyBlogContext>(option => option.UseMySQL(
                 Configuration.GetConnectionString("Default")
             ));
+            var config = new MapperConfiguration(e => e.AddProfile(new MappingProfile()));
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)

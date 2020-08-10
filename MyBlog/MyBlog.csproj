@@ -22,5 +22,10 @@
     <ProjectReference Include="..\MyBlogDTO\MyBlog.DTO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Upload\Article\" />
+    <Folder Include="wwwroot\Upload\PictureWall\" />
+  </ItemGroup>
+
 
 </Project>
