@@ -15,7 +15,7 @@ namespace MyBlog.BLL.Profiles
 
             CreateMap<ArticleCategory, ArticleCategoryDto>().ForMember(m=>m.CategoryId,
                 op=>op.MapFrom(m=>m.Id));
-            CreateMap<AddArticleCategoryDto, ArticleCategory>();
+         
 
             CreateMap<Articles, ArticleDto>();
 

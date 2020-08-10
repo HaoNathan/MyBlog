@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using MyBlog.BLL.Helper;
+using Helper.PageList;
 using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
 using MyBlog.DTO.ParameterDto;
@@ -31,14 +31,14 @@ namespace MyBlog.BLL
             return await _articleService.AddAsync(article);
         }
 
-        public async Task<PageList<ArticleDto>> QueryArticles(ArticleParameter parameter)
+        public  PageList<ArticleDto> QueryArticles(ArticleParameter parameter)
         {
-            var data = _articleService.QueryAll(true) as IQueryable<Articles>;
+            var data = _articleService.QueryAll(true);
 
             if (data==null)
                 return null;
 
-            if (!string.IsNullOrWhiteSpace(parameter.Id.ToString()))
+            if (parameter.Id!=Guid.Empty)
             {
                 data = data .Where(m => m.Id.Equals(parameter.Id));
             }
@@ -48,14 +48,14 @@ namespace MyBlog.BLL
                 data = data.Where(m=>!m.IsRemove);
             }
 
-            if (string.IsNullOrWhiteSpace(parameter.Search))
+            if (!string.IsNullOrWhiteSpace(parameter.Search))
             {
                 data = data.Where(m => m.Title.Contains(parameter.Search));
             }
 
-            var articles = _mapper.Map<IQueryable<ArticleDto>>(data);
+            var articles = _mapper.Map<IEnumerable<ArticleDto>>(data);
 
-            return await PageList<ArticleDto>.Create(articles, parameter.PageNum, parameter.PageSize);
+            return  PageList<ArticleDto>.Create(articles, parameter.PageNum, parameter.PageSize);
         }
 
         public async Task<ArticleDto> QueryArticle(Guid id)

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-namespace MyBlog.BLL.Helper
+namespace Helper.PageList
 {
     public class PageList<T> : List<T>
     {
@@ -31,11 +29,13 @@ namespace MyBlog.BLL.Helper
             TotalCount = count;
         }
 
-        public static async Task<PageList<T>> Create(IQueryable<T> source, int pageNum, int pageSize)
+        public static  PageList<T> Create(IEnumerable<T> source, int pageNum, int pageSize)
         {
-            var count = await source.CountAsync();
+            var enumerable = source.ToList();
 
-            var items = await source.Skip(pageSize * (pageNum - 1)).Take(pageSize).ToListAsync();
+            var count =  enumerable.Count();
+
+            var items =  enumerable.Skip(pageSize * (pageNum - 1)).Take(pageSize).ToList();
 
             return new PageList<T>(items, pageSize, pageNum, count);
         }

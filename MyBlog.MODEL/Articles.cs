@@ -23,11 +23,15 @@ namespace MyBlog.MODEL
 
         [Required]
         [DisplayName("文章内容")]
-        [Column(TypeName = "BLOB")]
+        [Column(TypeName = "MEDIUMBLOB")]
         public string Content { get; set; }
 
-
-        [ForeignKey(nameof(ArticleCategory))]
+        [Required]
+        [DisplayName("文章描述")]
+        [Column(TypeName = "nvarchar(200)")]
+        public string Description { get; set; }
+    
+         [ForeignKey(nameof(ArticleCategory))]
         public Guid ArticleCategoryId { get; set; }
         public ArticleCategory ArticleCategory { get; set; }
     }

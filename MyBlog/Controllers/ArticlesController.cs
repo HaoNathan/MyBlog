@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MyBlog.BLL.Extens;
 using MyBlog.DTO;
 using MyBlog.DTO.ParameterDto;
 using MyBlog.IBLL;
@@ -24,24 +27,44 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet(Name = nameof(GetArticles))]
-        public async Task<ActionResult<List<ArticleDto>>> GetArticles(ArticleParameter parameter)
+        public  ActionResult<List<ArticleDto>> GetArticles([FromQuery]ArticleParameter parameter)
         {
-            var data =await _manager.QueryArticles(parameter);
-            return Ok(_mapper.Map<List<ArticleDto>>(data).ToList());
+            var data = _manager.QueryArticles(parameter);
+            
+            var pageNationMetaData = new
+            {
+                data.PageSize,
+                currentPage = data.CurrentPage,
+                totalCount = data.TotalCount,
+                totalPages = data.TotalPages
+            };
+
+            Response.Headers.Add("x-pageNation", JsonSerializer.Serialize(pageNationMetaData, new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            }));
+
+            var links = CreateLinksForArticle(parameter, data.HasPrevious, data.HasNext);
+
+            var articles =(IEnumerable<ArticleDto>)data;
+
+            var articlesShape = articles.ShapeData(parameter.Fields);
+
+            return Ok(new{values=articlesShape,links});
         }
 
         [HttpGet]
         [Route("{articleId}")]
-        public ActionResult<ArticleDto> GetArticle(Guid articleId)
+        public async Task<ActionResult<ArticleDto>> GetArticle(Guid articleId)
         {
-            var data = _manager.QueryArticle(articleId);
+            var data =await _manager.QueryArticle(articleId);
                
-            return Ok(_mapper.Map<ArticleDto>(data));
+            return Ok(data);
         }
 
 
 
-        private string CreateCompaniesResourceUri(ArticleParameter parameters, ResourceUriType type)
+        private string CreateArticleResourceUri(ArticleParameter parameters, ResourceUriType type)
         {
             switch (type)
             {
@@ -76,22 +99,22 @@ namespace MyBlog.Controllers
             }
         }
 
-        private IEnumerable<LinkDto> CreateLinksForCompany(ArticleParameter parameters, bool hasPrevious,
+        private IEnumerable<LinkDto> CreateLinksForArticle(ArticleParameter parameters, bool hasPrevious,
             bool hasNext)
         {
             var links = new List<LinkDto>();
 
-            links.Add(new LinkDto(CreateCompaniesResourceUri(parameters, ResourceUriType.CurrentPage), "self", "Get"));
+            links.Add(new LinkDto(CreateArticleResourceUri(parameters, ResourceUriType.CurrentPage), "self", "Get"));
 
             if (hasPrevious)
             {
-                links.Add(new LinkDto(CreateCompaniesResourceUri(parameters, ResourceUriType.PreviousPage),
+                links.Add(new LinkDto(CreateArticleResourceUri(parameters, ResourceUriType.PreviousPage),
                     "previousPage", "Get"));
             }
 
             if (hasNext)
             {
-                links.Add(new LinkDto(CreateCompaniesResourceUri(parameters, ResourceUriType.NextPage), "nextPage",
+                links.Add(new LinkDto(CreateArticleResourceUri(parameters, ResourceUriType.NextPage), "nextPage",
                     "Get"));
             }
 
