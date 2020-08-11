@@ -30,5 +30,6 @@ namespace MyBlog.Controllers
             model.ArticleCategoryId = articleCategoryId;
             return Ok(await _manager.CreateArticle(model));
         }
+        
     }
 }

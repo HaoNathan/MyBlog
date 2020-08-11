@@ -19,7 +19,16 @@ namespace MyBlog.BLL.Profiles
 
             CreateMap<Articles, ArticleDto>();
 
+            CreateMap<AddArticleCommentDto, ArticleComment>();
+
+            CreateMap<ArticleComment, ArticleCommentDto>();
+
             CreateMap<AddArticleDto, Articles>();
+
+            CreateMap<AddLeaveMessageDto, LeaveMessage>();
+
+            CreateMap<LeaveMessage, LeaveMessageDto>();
+
 
             //给不同属性赋等同值
             //    .ForMember(op => op.Gender,
