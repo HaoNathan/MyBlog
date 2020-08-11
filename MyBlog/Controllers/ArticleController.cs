@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
 using MyBlog.IBLL;
-using MyBlogDTO;
 
 namespace MyBlog.Controllers
 {

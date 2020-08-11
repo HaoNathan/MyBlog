@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyBlog.MODEL
+namespace MyBlog.DTO.AddViewDto
 {
-    public class ArticleComment:BaseEntity
+    public class AddArticleCommentDto
     {
         [Required]
         [DisplayName("评论")]
@@ -14,19 +14,16 @@ namespace MyBlog.MODEL
         public string Comment { get; set; }
 
         [Required]
-        [DisplayName( "访客名")]
+        [DisplayName("访客昵称")]
         [Column(TypeName = "nvarchar(10)")]
         [StringLength(maximumLength: 10, ErrorMessage = "{0}最大长度为{1}")]
         public string UserName { get; set; }
 
         [Required]
         [DisplayName("联系方式")]
-        [Column(TypeName = "nvarchar(50)")]
         [StringLength(maximumLength: 50, ErrorMessage = "{0}最大长度为{1}")]
-        public string Contact { get; set; } 
+        public string Contact { get; set; }
 
-        [ForeignKey(nameof(Article))]
         public Guid ArticleId { get; set; }
-        public Articles Article { get; set; }
     }
 }

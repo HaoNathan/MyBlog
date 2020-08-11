@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlog.MODEL;
 
 namespace MyBlog.MODEL.Migrations
 {
     [DbContext(typeof(MyBlogContext))]
-    partial class MyBlogContextModelSnapshot : ModelSnapshot
+    [Migration("20200811034039_UpdateComment")]
+    partial class UpdateComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,11 +53,11 @@ namespace MyBlog.MODEL.Migrations
                         new
                         {
                             Id = "bbdee09c-089b-4d30-bece-44df5923716c",
-                            CreateTime = new DateTime(2020, 8, 11, 11, 55, 45, 761, DateTimeKind.Local).AddTicks(2855),
+                            CreateTime = new DateTime(2020, 8, 11, 11, 40, 39, 514, DateTimeKind.Local).AddTicks(4771),
                             IsRemove = false,
                             Name = "stackOverflow",
                             Password = "throwNewException",
-                            UpdateTime = new DateTime(2020, 8, 11, 11, 55, 45, 761, DateTimeKind.Local).AddTicks(2305)
+                            UpdateTime = new DateTime(2020, 8, 11, 11, 40, 39, 514, DateTimeKind.Local).AddTicks(4278)
                         });
                 });
 

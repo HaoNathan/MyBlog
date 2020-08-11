@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -39,7 +38,7 @@ namespace MyBlog.Controllers
                 totalPages = data.TotalPages
             };
 
-            Response.Headers.Add("x-pageNation", JsonSerializer.Serialize(pageNationMetaData, new JsonSerializerOptions
+            Response.Headers.Add("xPageNation", JsonSerializer.Serialize(pageNationMetaData, new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             }));

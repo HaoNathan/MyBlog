@@ -20,11 +20,14 @@ namespace MyBlog.DTO.AddViewDto
         [StringLength(maximumLength: 100, ErrorMessage = "{0}最大长度为{1}")]
         public string ImageUrl { get; set; }
 
+        [Required]
+        [DisplayName("文章说明")]
+        [StringLength(maximumLength: 200, ErrorMessage = "{0}最大长度为{1}")]
+        public string Description { get; set; }
 
         [Required]
         [DisplayName("文章内容")]
         public string Content { get; set; }
-
         public Guid ArticleCategoryId { get; set; }
     }
 }
