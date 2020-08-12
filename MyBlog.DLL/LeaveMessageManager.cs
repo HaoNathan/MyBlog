@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyBlog.DTO;
-using MyBlog.DTO.AddViewDto;
 using MyBlog.IBLL;
 using MyBlog.IDAL;
 using MyBlog.MODEL;
@@ -20,9 +19,9 @@ namespace MyBlog.BLL
             _server = service;
             _mapper = mapper;
         }
-        public async Task<int> CreateLeaveMessage(AddLeaveMessageDto model)
+        public async Task<int> CreateLeaveMessage(LeaveMessage model)
         {
-            return await _server.AddAsync(_mapper.Map<LeaveMessage>(model));
+            return await _server.AddAsync(model);
         }
 
         public IEnumerable<LeaveMessageDto> QueryLeaveMessages(bool isRemove)

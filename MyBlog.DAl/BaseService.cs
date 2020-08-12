@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ namespace MyBlog.DAl
         public IEnumerable<T> QueryAll(bool isNoTracking)
         {
             if (isNoTracking)
-                return _context.Set<T>().AsNoTracking();
+                return _context.Set<T>().AsNoTracking().OrderByDescending(m=>m.CreateTime);
 
             return _context.Set<T>();
 

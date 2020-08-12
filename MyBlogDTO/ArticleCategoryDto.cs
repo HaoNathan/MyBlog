@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyBlogDTO
+namespace MyBlog.DTO
 {
     public class ArticleCategoryDto
     {

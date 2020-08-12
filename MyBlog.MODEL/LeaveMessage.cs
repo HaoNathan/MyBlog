@@ -14,8 +14,8 @@ namespace MyBlog.MODEL
 
         [Required]
         [DisplayName("访客名")]
-        [Column(TypeName = "nvarchar(10)")]
-        [StringLength(maximumLength: 10, ErrorMessage = "{0}最大长度为{1}")]
+        [Column(TypeName = "nvarchar(20)")]
+        [StringLength(maximumLength: 20, ErrorMessage = "{0}最大长度为{1}")]
         public string UserName { get; set; }
 
         [Required]

@@ -40,7 +40,7 @@ namespace MyBlog.BLL
 
             if (parameter.Id!=Guid.Empty)
             {
-                data = data .Where(m => m.Id.Equals(parameter.Id));
+                data = data .Where(m => m.ArticleCategoryId.Equals(parameter.Id));
             }
 
             if (!parameter.IsRemove)
@@ -48,7 +48,7 @@ namespace MyBlog.BLL
                 data = data.Where(m=>!m.IsRemove);
             }
 
-            if (!string.IsNullOrWhiteSpace(parameter.Search))
+            if (!string.IsNullOrWhiteSpace(parameter.Search))   
             {
                 data = data.Where(m => m.Title.Contains(parameter.Search));
             }

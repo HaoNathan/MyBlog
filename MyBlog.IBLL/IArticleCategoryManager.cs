@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
@@ -11,6 +12,9 @@ namespace MyBlog.IBLL
         Task<int> CreateCategory(AddArticleCategoryDto model);
 
         IEnumerable<ArticleCategoryDto> QueryAll(bool isRemove,bool isNoTracking);
+
+
+        Task<int> UpdateCategoryState(Guid id);
 
     }
 

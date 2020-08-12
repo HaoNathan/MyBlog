@@ -10,7 +10,7 @@ namespace MyBlog.DTO
 
         public string Contact { get; set; }
 
-        public string Comment { get; set; }
+        public string Message { get; set; }
 
         public DateTime CreateTime { get; set; }
 

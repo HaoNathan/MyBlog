@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -43,5 +44,13 @@ namespace MyBlog.BLL
         }
 
 
+        public async Task<int> UpdateCategoryState(Guid id)
+        {
+            var category = await _service.QueryAsync(m => m.Id.Equals(id));
+
+            category.IsRemove = true;
+
+            return await _service.UpdateAsync(category);
+        }
     }
 }

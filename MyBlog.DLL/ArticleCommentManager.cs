@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyBlog.DTO;
-using MyBlog.DTO.AddViewDto;
 using MyBlog.IBLL;
 using MyBlog.IDAL;
 using MyBlog.MODEL;
@@ -21,9 +20,9 @@ namespace MyBlog.BLL
             _mapper = mapper;
             _service = service;
         }
-        public async Task<int> CreateArticleComment(AddArticleCommentDto model)
+        public async Task<int> CreateArticleComment(ArticleComment model)
         {
-            return await _service.AddAsync(_mapper.Map<ArticleComment>(model));
+            return await _service.AddAsync(model);
         }
 
         public IEnumerable<ArticleCommentDto> QueryArticleComments(Guid articleId, bool isRemove)

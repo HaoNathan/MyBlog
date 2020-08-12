@@ -15,5 +15,7 @@ namespace MyBlog.DTO
         public string Description { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public Guid ArticleCategoryId { get; set; }
     }
 }

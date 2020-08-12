@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Helper\Helper.csproj" />
+    <ProjectReference Include="..\MyBlog.MODEL\MyBlog.MODEL.csproj" />
     <ProjectReference Include="..\MyBlogDTO\MyBlog.DTO.csproj" />
   </ItemGroup>
 

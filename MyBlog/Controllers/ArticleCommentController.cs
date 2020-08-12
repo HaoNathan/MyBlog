@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.DTO.AddViewDto;
 using MyBlog.IBLL;
+using MyBlog.MODEL;
 
 namespace MyBlog.Controllers
 {
     [ApiController]
-    [Route("api/article/{articleId}")]
+    [Route("api/article/{articleId}/articleComment")]
     public class ArticleCommentController : ControllerBase
     {
         private readonly IArticleCommentManager _manager;
+        private readonly IMapper _mapper;
 
-        public ArticleCommentController(IArticleCommentManager manager)
+        public ArticleCommentController(IArticleCommentManager manager,IMapper mapper)
         {
             _manager = manager;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        [Route("articleComment")]
         public async Task<IActionResult> CreateArticleComment(Guid articleId, [FromBody] AddArticleCommentDto model)
         {
             if (!TryValidateModel(model))
@@ -30,14 +32,19 @@ namespace MyBlog.Controllers
 
             model.ArticleId = articleId;
 
-            var res = await _manager.CreateArticleComment(model)==1;
+            var articleComment = _mapper.Map<ArticleComment>(model);
 
-            return Ok(new { isSuccess = res, msg = "操作成功"});
+            if (await _manager.CreateArticleComment(articleComment) != 1)
+            {
+                return BadRequest();
+            }
+
+            return CreatedAtRoute(nameof(GetArticleComment), new {articleId, isRemove = false }, articleComment);
 
         }
 
-        [HttpGet]
-        public IActionResult GetArticleComment(Guid articleId, [FromQuery] bool isRemove)
+        [HttpGet(Name = nameof(GetArticleComment))]
+        public IActionResult GetArticleComment([FromRoute]Guid articleId, [FromQuery] bool isRemove)
         {
             var data = _manager.QueryArticleComments(articleId, isRemove).ToList();
 
