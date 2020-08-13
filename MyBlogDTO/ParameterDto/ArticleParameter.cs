@@ -6,9 +6,16 @@ namespace MyBlog.DTO.ParameterDto
     {
         private const int MaxPageSize = 10;
         public Guid Id { get; set; }
+        public string CategoryName { get; set; }
+
         public string Search { get; set; }
+
         public int PageNum { get; set; } = 1;
+
         public bool IsRemove { get; set; }
+
+        public bool IsOrder { get; set; }
+
         private int _pageSize = 5;
 
         public string Fields { get; set; }

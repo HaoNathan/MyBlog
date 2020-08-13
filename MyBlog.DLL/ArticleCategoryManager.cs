@@ -43,6 +43,13 @@ namespace MyBlog.BLL
             return _mapper.Map<IEnumerable<ArticleCategoryDto>>(data2);
         }
 
+        public async Task<ArticleCategoryDto> QueryCategory(string name)
+        {
+            var category = await _service.QueryAsync(m => m.CategoryName.Equals(name));
+
+            return _mapper.Map<ArticleCategoryDto>(category);
+        }
+
 
         public async Task<int> UpdateCategoryState(Guid id)
         {

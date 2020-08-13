@@ -26,9 +26,9 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet(Name = nameof(GetArticles))]
-        public  ActionResult<List<ArticleDto>> GetArticles([FromQuery]ArticleParameter parameter)
+        public  async Task<ActionResult<List<ArticleDto>>> GetArticles([FromQuery]ArticleParameter parameter)
         {
-            var data = _manager.QueryArticles(parameter);
+            var data =await _manager.QueryArticles(parameter);
             
             var pageNationMetaData = new
             {

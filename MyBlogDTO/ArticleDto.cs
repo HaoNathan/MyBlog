@@ -17,5 +17,7 @@ namespace MyBlog.DTO
         public DateTime CreateTime { get; set; }
 
         public Guid ArticleCategoryId { get; set; }
+
+        public int CommentCount { get; set; }
     }
 }

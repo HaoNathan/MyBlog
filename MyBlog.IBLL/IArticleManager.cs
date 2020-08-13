@@ -11,7 +11,7 @@ namespace MyBlog.IBLL
     {
         Task<int> CreateArticle(AddArticleDto model);
 
-        PageList<ArticleDto> QueryArticles(ArticleParameter parameter);
+        Task<PageList<ArticleDto>> QueryArticles(ArticleParameter parameter);
 
         Task<ArticleDto> QueryArticle(Guid id);
 

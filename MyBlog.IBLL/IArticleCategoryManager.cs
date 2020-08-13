@@ -13,6 +13,7 @@ namespace MyBlog.IBLL
 
         IEnumerable<ArticleCategoryDto> QueryAll(bool isRemove,bool isNoTracking);
 
+        Task<ArticleCategoryDto> QueryCategory(string name);
 
         Task<int> UpdateCategoryState(Guid id);
 
