@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MyBlog.BLL.Extens;
+using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
 using MyBlog.IBLL;
 using MyBlog.MODEL;
@@ -46,9 +48,20 @@ namespace MyBlog.Controllers
         [HttpGet(Name = nameof(GetArticleComment))]
         public IActionResult GetArticleComment([FromRoute]Guid articleId, [FromQuery] bool isRemove)
         {
-            var data = _manager.QueryArticleComments(articleId, isRemove).ToList();
+            var data = _manager.QueryArticleComments(articleId, isRemove);
 
-            return Ok(data);
+            var articleComments = data.ShapeData("message,createTime,userName,replyMessages");
+
+            return Ok(articleComments);
+        }
+
+        [HttpPost]
+        [Route("UpdateArticleCommentStatus")]
+        public async Task<IActionResult> UpdateStatus([FromBody]ArticleCommentDto model )
+        {
+            await _manager.UpdateArticleCommentStatus(model.Id, model.IsRemove);
+
+            return NoContent();
         }
     }
 }

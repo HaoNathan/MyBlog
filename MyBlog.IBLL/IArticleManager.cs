@@ -15,5 +15,8 @@ namespace MyBlog.IBLL
 
         Task<ArticleDto> QueryArticle(Guid id);
 
+        Task<int> UpdateArticleStatus(Guid id,bool status);
+
+        Task<int> UpdateArticle(Guid id, AddArticleDto model);
     }
 }

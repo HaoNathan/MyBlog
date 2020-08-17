@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MyBlog.DTO;
 using MyBlog.DTO.AddViewDto;
 using MyBlog.IBLL;
 
@@ -30,6 +31,14 @@ namespace MyBlog.Controllers
             model.ArticleCategoryId = articleCategoryId;
             return Ok(await _manager.CreateArticle(model));
         }
-        
+
+        [HttpPost]
+        [Route("{articleId}/updateStatus")]
+        public async Task<IActionResult> UpdateArticleStatus( [FromRoute]Guid articleId,[FromBody] ArticleDto model)
+        {
+            await _manager.UpdateArticleStatus(articleId, model.IsRemove);
+
+            return NoContent();
+        }
     }
 }

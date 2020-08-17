@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MyBlog.DTO
 {
@@ -10,6 +11,13 @@ namespace MyBlog.DTO
 
         public string UserName { get; set; }
 
+        public string Contact { get; set; }
+
         public string Message { get; set; }
+
+        public bool IsRemove { get; set; }
+
+        public IEnumerable<ReplyMessageDto> ReplyMessages { get; set; }
+
     }
 }

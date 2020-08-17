@@ -16,6 +16,7 @@ namespace MyBlog.MODEL
         public DbSet<ArticleComment> ArticleComment { get; set; }
         public DbSet<LeaveMessage> LeaveMessage { get; set; }
         public DbSet<PictureWall> PictureWall { get; set; }
+        public DbSet<ReplyMessage>ReplyMessage { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,6 +52,13 @@ namespace MyBlog.MODEL
                 .IsRequired()
                 .HasMaxLength(36).HasColumnType("char(36)");
 
+            modelBuilder.Entity<ReplyMessage>().Property(x => x.Id)
+                .IsRequired()
+                .HasMaxLength(36).HasColumnType("char(36)");
+
+            modelBuilder.Entity<ReplyMessage>().Property(x => x.CommentId)
+                .IsRequired()
+                .HasMaxLength(36).HasColumnType("char(36)");
 
             modelBuilder.Entity<Admin>().HasData(
                 new Admin()

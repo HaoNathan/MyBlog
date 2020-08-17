@@ -19,5 +19,7 @@ namespace MyBlog.DTO
         public Guid ArticleCategoryId { get; set; }
 
         public int CommentCount { get; set; }
+
+        public bool IsRemove { get; set; }
     }
 }

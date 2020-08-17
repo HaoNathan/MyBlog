@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -94,6 +93,26 @@ namespace MyBlog.BLL
             var article = await _articleService.QueryAsync(id);
 
             return _mapper.Map<ArticleDto>(article);
+        }
+
+        public async Task<int> UpdateArticleStatus(Guid id, bool status)
+        {
+            var article = await _articleService.QueryAsync(id);
+
+            article.IsRemove = status;
+
+            return await _articleService.UpdateAsync(article);
+        }
+
+        public async Task<int> UpdateArticle(Guid id, AddArticleDto model)
+        {
+            var article = await _articleService.QueryAsync(id);
+
+            article.UpdateTime=DateTime.Now;
+
+            _mapper.Map(model, article);
+
+            return await _articleService.UpdateAsync(article);
         }
     }
 }

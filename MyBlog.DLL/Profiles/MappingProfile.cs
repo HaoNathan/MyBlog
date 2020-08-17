@@ -27,6 +27,10 @@ namespace MyBlog.BLL.Profiles
 
             CreateMap<AddLeaveMessageDto, LeaveMessage>();
 
+            CreateMap<ReplyMessageDto, ReplyMessage>();
+
+            CreateMap<ReplyMessage, ReplyMessageDto>();
+
             CreateMap<LeaveMessage, LeaveMessageDto>();
 
 

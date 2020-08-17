@@ -36,6 +36,7 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 180)]
         public ActionResult<List<ArticleCategoryDto>> GetCategories([FromQuery]bool isRemove)
         {
             return Ok(_manager.QueryAll(isRemove,true).ToList());

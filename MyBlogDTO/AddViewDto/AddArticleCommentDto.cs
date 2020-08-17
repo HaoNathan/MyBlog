@@ -22,5 +22,7 @@ namespace MyBlog.DTO.AddViewDto
         public string Contact { get; set; }
 
         public Guid ArticleId { get; set; }
+
+        public bool IsRemove { get; set; }
     }
 }

@@ -24,10 +24,19 @@ namespace MyBlog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching();
             services.AddControllers();
             services.AddDbContext<MyBlogContext>(option => option.UseMySQL(
                 Configuration.GetConnectionString("Default")
             ));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://www.2504511.xyz").AllowAnyHeader().AllowCredentials();
+                    });
+            });
             var config = new MapperConfiguration(e => e.AddProfile(new MappingProfile()));
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
@@ -64,6 +73,10 @@ namespace MyBlog
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+
+            app.UseResponseCaching();
+
+            app.UseCors("AllowSpecificOrigins");
 
             app.UseRouting();
 

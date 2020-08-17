@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.BLL.Extens;
 using MyBlog.DTO;
+using MyBlog.DTO.AddViewDto;
 using MyBlog.DTO.ParameterDto;
 using MyBlog.IBLL;
 
@@ -17,12 +18,10 @@ namespace MyBlog.Controllers
     public class ArticlesController:ControllerBase
     {
         private readonly IArticleManager _manager;
-        private readonly IMapper _mapper;
 
-        public ArticlesController(IArticleManager manager,IMapper mapper)
+        public ArticlesController(IArticleManager manager )
         {
             _manager = manager;
-            _mapper = mapper;
         }
 
         [HttpGet(Name = nameof(GetArticles))]
@@ -61,6 +60,19 @@ namespace MyBlog.Controllers
             return Ok(data);
         }
 
+        [HttpPost]
+        [Route("{articleId}/updateArticle")]
+        public async Task<IActionResult> UpdateArticle(Guid articleId, [FromBody] AddArticleDto model)
+        {
+            if (!TryValidateModel(model))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            await _manager.UpdateArticle(articleId, model);
+
+            return NoContent();
+        }
 
 
         private string CreateArticleResourceUri(ArticleParameter parameters, ResourceUriType type)
